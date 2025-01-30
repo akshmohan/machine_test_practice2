@@ -58,6 +58,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 label: Strings.usernameLabel,
                 hintText: Strings.usernameHint,
                 prefixIcon: const Icon(Icons.person, color: AppColors.primaryColor), 
+                validator: (value) {
+                  if(value!.isEmpty) {
+                    return Strings.usernameValidator;
+                  }
+                }
               ),
               const SizedBox(height: 20),
               CustomTextField(
@@ -65,6 +70,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 controller: passwordController,
                 label: Strings.passwordLabel,
                 hintText: Strings.passwordHint,
+                validator: (value) {
+                  if(value!.isEmpty) {
+                    return Strings.passwordValidator;
+                  }
+                },
                 prefixIcon:
                     const Icon(Icons.lock, color: AppColors.primaryColor), 
                 suffixIcon: IconButton(

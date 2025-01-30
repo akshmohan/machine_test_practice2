@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:machine_test_practice2/core/constants/app_colors.dart';
-
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
@@ -9,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final TextInputType inputType;
+  final FormFieldValidator<String>? validator;
 
   const CustomTextField({
     super.key,
@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.inputType = TextInputType.text,
+    this.validator,
   });
 
   @override
@@ -28,22 +29,25 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       keyboardType: inputType,
+      validator: validator,
       decoration: InputDecoration(
-          label: Text(
-            label,
-            style: TextStyle(color: AppColors.primaryColor),
-          ),
-          hintText: hintText,
-          hintStyle: const TextStyle(color: AppColors.primaryColor),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade600),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.primaryColor),
-          ),
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon  
-          ),
+        labelText: label,
+        labelStyle: TextStyle(color: AppColors.primaryColor),
+        hintText: hintText,
+        hintStyle: const TextStyle(color: AppColors.primaryColor),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade600),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.primaryColor),
+        ),
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+          border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+      borderSide: BorderSide(color: Colors.grey.shade600),
+    ),
+      ),
     );
   }
 }
