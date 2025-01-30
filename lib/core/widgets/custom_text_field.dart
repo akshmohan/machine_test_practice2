@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:machine_test_practice2/core/constants/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -23,22 +24,22 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: AppColors.primaryColor),
       controller: controller,
       obscureText: obscureText,
       keyboardType: inputType,
       decoration: InputDecoration(
           label: Text(
             label,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: AppColors.primaryColor),
           ),
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.white),
+          hintStyle: const TextStyle(color: AppColors.primaryColor),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade600),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: AppColors.primaryColor),
           ),
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon  

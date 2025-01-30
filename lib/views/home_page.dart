@@ -6,8 +6,18 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.brightness_6)),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.logout),
+          )
+        ],
+      ),
       body: Center(
-        child: Text("Home Page"),),
+        child: Text("Home Page"),
+      ),
     );
   }
 }

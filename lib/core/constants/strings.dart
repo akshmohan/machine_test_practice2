@@ -5,4 +5,5 @@ class Strings {
   static const String passwordHint = "Enter Password";
   static const String passwordLabel = "Password";
   static const String loginButton = "Login";
+  static const String loginException = "Failed to login!";
 }
