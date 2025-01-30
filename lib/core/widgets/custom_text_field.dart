@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:machine_test_practice2/core/constants/app_colors.dart';
-class CustomTextField extends StatelessWidget {
+
+
+
+class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final String hintText;
@@ -9,6 +12,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final TextInputType inputType;
   final FormFieldValidator<String>? validator;
+  final VoidCallback? onTap;
 
   const CustomTextField({
     super.key,
@@ -19,21 +23,37 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.inputType = TextInputType.text,
-    this.validator,
+    this.validator, 
+    this.onTap,
   });
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  final _textFormFieldKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: _textFormFieldKey, 
       style: const TextStyle(color: AppColors.primaryColor),
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: inputType,
-      validator: validator,
+      controller: widget.controller,
+      obscureText: widget.obscureText,
+      keyboardType: widget.inputType,
+      validator: widget.validator,
+      onTap: () {
+        setState(() {
+          _textFormFieldKey.currentState?.reset();
+        });
+
+        widget.onTap?.call();
+      },
       decoration: InputDecoration(
-        labelText: label,
+        labelText: widget.label,
         labelStyle: TextStyle(color: AppColors.primaryColor),
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: const TextStyle(color: AppColors.primaryColor),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade600),
@@ -41,12 +61,12 @@ class CustomTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primaryColor),
         ),
-        suffixIcon: suffixIcon,
-        prefixIcon: prefixIcon,
-          border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: Colors.grey.shade600),
-    ),
+        suffixIcon: widget.suffixIcon,
+        prefixIcon: widget.prefixIcon,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(color: Colors.grey.shade600),
+        ),
       ),
     );
   }
