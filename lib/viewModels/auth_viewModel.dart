@@ -8,23 +8,19 @@ import 'package:machine_test_practice2/repositories/auth_repository.dart';
 class AuthViewmodel with ChangeNotifier {
   UserModel? _user;
   bool _isAuthenticated = false;
-  bool _isLoading = false;
 
   UserModel? get user => _user;
   bool get isAuthenticated => _isAuthenticated;
-  bool get isLoading => _isLoading;
 
   Future<void> login(String username, String password) async {
     try {
-      _isLoading = true;
-      notifyListeners();
+
 
       final _authRepo = AuthRepository();
       final result = await _authRepo.login(username, password);
 
       _isAuthenticated = true;
       _user = UserModel.fromJson(result);
-      _isLoading = false;
       notifyListeners();
     } catch (e) {
       throw Exception(e.toString());
