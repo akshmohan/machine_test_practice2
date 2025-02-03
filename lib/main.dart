@@ -35,8 +35,7 @@ class MyApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: authViewModel.isAuthenticated ? const HomePage() : const LoginPage(),
-      home: const HomePage(),
+      home: authViewModel.isAuthenticated ? const HomePage() : const LoginPage(),
     );
   }
 }
