@@ -1,16 +1,16 @@
 class UserModel {
   final String? username;
-  final String accesstoken;
+  final String accessToken;
 
   UserModel({
     this.username,
-    required this.accesstoken,
+    required this.accessToken,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       username: json['username'] ?? '',
-      accesstoken: json['accessToken'] ?? '',
+      accessToken: json['accessToken'] ?? '',
     );
   }
 }

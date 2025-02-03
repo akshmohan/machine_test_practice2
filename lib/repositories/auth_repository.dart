@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:machine_test_practice2/core/constants/api_endpoints.dart';
 import 'package:machine_test_practice2/core/constants/strings.dart';
+import 'package:machine_test_practice2/services/storage_service.dart';
 
 class AuthRepository {
   Future<Map<String, dynamic>> login(String username, String password) async {
@@ -20,6 +21,15 @@ class AuthRepository {
         throw Exception(Strings.loginException);
       }
     } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> logout () async{
+    try{
+      final storageService = StorageService();
+      await storageService.clearAccessToken();
+    } catch(e) {
       throw Exception(e.toString());
     }
   }
