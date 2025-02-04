@@ -7,13 +7,16 @@ import 'package:machine_test_practice2/services/storage_service.dart';
 class AuthRepository {
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {
-      final response = await http.post(Uri.parse(ApiEndpoints.loginUrl),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({
+      final response = await http.post(
+        Uri.parse(ApiEndpoints.loginUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(
+          {
             "username": username,
             "password": password,
-          }));
-
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         return data;
@@ -25,11 +28,11 @@ class AuthRepository {
     }
   }
 
-  Future<void> logout () async{
-    try{
+  Future<void> logout() async {
+    try {
       final storageService = StorageService();
       await storageService.clearAccessToken();
-    } catch(e) {
+    } catch (e) {
       throw Exception(e.toString());
     }
   }

@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:machine_test_practice2/viewModels/post_viewModel.dart';
 
 final currentIndexProvider = StateProvider<int>((ref) => 0);
+final themeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -18,10 +19,19 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(currentIndexProvider);
     final postViewModel = ref.watch(postProvider);
+    final themeMode = ref.watch(themeProvider);
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.brightness_6)),
+        leading: IconButton(
+          onPressed: () {
+            ref.read(themeProvider.notifier).state =
+                themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+          },
+          icon: Icon(
+            themeMode == ThemeMode.light ? Icons.dark_mode : Icons.light_mode,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -89,7 +99,8 @@ class HomePage extends ConsumerWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                            "AccessToken: ${ref.watch(authProvider).accessToken}"),
+                          "AccessToken: ${ref.watch(authProvider).accessToken}",
+                        ),
                       ),
                     ),
                   ],
@@ -105,9 +116,10 @@ class HomePage extends ConsumerWidget {
                     return Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                              color: AppColors.secondaryColor, width: 2)),
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                            color: AppColors.secondaryColor, width: 2),
+                      ),
                       child: ListTile(
                         title: Text(
                           post.title.toString(),
@@ -126,18 +138,19 @@ class HomePage extends ConsumerWidget {
                   },
                 ),
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: currentIndex,
-          onTap: (index) {
-            ref.read(currentIndexProvider.notifier).update((state) => index);
-            if (index == 1) {
-              ref.read(postProvider.notifier).getAllPosts();
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: "Posts"),
-          ]),
+        type: BottomNavigationBarType.fixed,
+        currentIndex: currentIndex,
+        onTap: (index) {
+          ref.read(currentIndexProvider.notifier).update((state) => index);
+          if (index == 1) {
+            ref.read(postProvider.notifier).getAllPosts();
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: "Posts"),
+        ],
+      ),
     );
   }
 }

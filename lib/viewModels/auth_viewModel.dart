@@ -47,7 +47,6 @@ class AuthViewmodel with ChangeNotifier {
 
   Future<void> login(String username, String password) async {
     try {
-
       final _authRepository = AuthRepository();
       final result = await _authRepository.login(username, password);
       if (result['accessToken'] != null) {

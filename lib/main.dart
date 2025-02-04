@@ -16,6 +16,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final authViewModel = ref.watch(authProvider);
+    final themeMode = ref.watch(themeProvider);
 
    if (!authViewModel.isInitialised) {
       return const MaterialApp(
@@ -31,10 +32,9 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       routes: Routes.route,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: themeMode ,
       home: authViewModel.isAuthenticated ? const HomePage() : const LoginPage(),
     );
   }
